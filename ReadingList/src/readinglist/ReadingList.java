@@ -25,7 +25,7 @@ public class ReadingList {
         Connection c = null;
         try {
           Class.forName("org.sqlite.JDBC");
-          c = DriverManager.getConnection("jdbc:sqlite:test.db");
+          c = DriverManager.getConnection("jdbc:sqlite:reading_list.db");
           createDatabase(c);
 
           c.close();
