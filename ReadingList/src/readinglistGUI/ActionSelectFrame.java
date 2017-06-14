@@ -34,6 +34,8 @@ public class ActionSelectFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.setLayout(new BorderLayout());
+        
+        // set up two JLists to hold tables and actions for user to select
         tables = new JList<>();
         //String[] tableArray = this.getAvailableTables();
         tables.setVisibleRowCount(5);
@@ -44,13 +46,12 @@ public class ActionSelectFrame extends JFrame{
         
         enter = new JButton("Enter");
         
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(2,2,5,5));
-        JPanel southPanel = new JPanel();
-        southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JPanel northPanel = new JPanel();
-        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        // create 3 JPanels to organize content in JFrame with BorderLayout
+        JPanel centerPanel = new JPanel(new GridLayout(2,2,5,5));
+        JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         
+        // ScrollPanes for the JLists so they are scrollable
         JScrollPane tablesScrollPane = new JScrollPane(tables);
         JScrollPane actionsScrollPane = new JScrollPane(actions);
         
