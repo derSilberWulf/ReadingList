@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Vincent Yahna
@@ -21,18 +23,26 @@ public class ReadingList {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException, IOException {
-        //TO DO: check if tables exist
+        
         Connection c = null;
         try {
+          boolean fileExists = new File("reading_list.db").exists();
           Class.forName("org.sqlite.JDBC");
           c = DriverManager.getConnection("jdbc:sqlite:reading_list.db");
-          createDatabase(c);
+          if(!fileExists){
+              //good enough for now. We assume if the file exists,
+              //then the tables have been created.
+             createDatabase(c);
+          }
+          
 
           c.close();
         } catch ( SQLException e ) {
           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
           System.exit(0);
         }
+        
+        testing();
         
         
     }
@@ -66,6 +76,25 @@ public class ReadingList {
 
         String str = new String(data, "UTF-8");
         return str;
+    }
+    
+    /**
+     * Place for testing some code
+     */
+    public static void testing(){
+        try {
+            ReadingListDatabase rld = new ReadingListDatabase();
+            String[] tables = rld.availableTables();
+            for(int i=0; i<tables.length; i++){
+                System.out.println(tables[i]);
+            }
+            
+            rld.addAuthor("Thomas", "Barron", "Notable for writing about Merlin.");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReadingList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReadingList.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
