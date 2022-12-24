@@ -4,19 +4,76 @@
  */
 package readinglistGUI;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+import readinglist.ReadingListDatabase;
+
 /**
  *
  * @author Alexander Yahna
  */
-public class AddUsertUI extends javax.swing.JFrame {
+public class AddUserUI extends javax.swing.JFrame {
 
+    class submitListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String username = getNewUser();
+            try {
+                ReadingListDatabase rld = new ReadingListDatabase();
+                rld.addUser(username);
+                jTextField1.setText("");
+                JButton thisbutton = (JButton) e.getSource();
+                Window window = SwingUtilities.windowForComponent(thisbutton);
+                //window.dispose();
+            } catch ( ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(AddUserUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    class backButtonListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+        }
+    }
     /**
-     * Creates new form AddUsertUI
+     * Creates new form AddUserUI
      */
-    public AddUsertUI() {
+    public AddUserUI() {
         initComponents();
+        jButton2.addActionListener(new submitListener());
+        jButton1.addActionListener(new backButtonListener());
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2- this.getSize().width/2, dim.height/2 - this.getSize().height/2);
     }
 
+       /**
+     * Adds an action listener to the submit button
+     * @param al 
+     */
+    public void addButtonListener(ActionListener al){
+        jButton2.addActionListener(al);
+    }
+    
+    /**
+     * Gets the value the user has put in the text box for a new username
+     * @return String
+     */
+    public String getNewUser(){
+        return this.jTextField1.getText();
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,20 +180,20 @@ public class AddUsertUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddUsertUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUserUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddUsertUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUserUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddUsertUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUserUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddUsertUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddUserUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddUsertUI().setVisible(true);
+                new AddUserUI().setVisible(true);
             }
         });
     }
