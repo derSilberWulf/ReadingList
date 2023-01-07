@@ -4,7 +4,7 @@
  * what they want to do
  */
 
-package readinglistGUI;
+package not_used;
 
 import java.awt.*;
 import javax.swing.*;

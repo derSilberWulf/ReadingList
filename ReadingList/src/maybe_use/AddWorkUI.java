@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package readinglistGUI;
+package maybe_use;
 
 /**
  *
@@ -126,7 +126,7 @@ public class AddWorkUI extends javax.swing.JFrame {
                                 .addGap(16, 16, 16)
                                 .addComponent(jLabel4)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

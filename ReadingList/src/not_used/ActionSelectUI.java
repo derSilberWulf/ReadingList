@@ -2,7 +2,7 @@
  * A menu for prompting the user which SQL table they want to edit/view and 
  * whether they want to edit, view, or insert entries of the table
  */
-package readinglistGUI;
+package not_used;
 
 import javax.swing.DefaultComboBoxModel;
 import readinglist.ReadingListModel;
@@ -65,10 +65,10 @@ public class ActionSelectUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tables = new javax.swing.JComboBox<String>();
+        tables = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        actions = new javax.swing.JComboBox<String>();
+        actions = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         enter = new javax.swing.JButton();
 

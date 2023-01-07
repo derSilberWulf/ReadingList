@@ -21,7 +21,7 @@ import readinglist.ReadingListDatabase.users_struct;
  *
  * @author VJY
  */
-public class Login_form extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
 
     class MyButtonListener implements ActionListener{
         @Override
@@ -41,7 +41,13 @@ public class Login_form extends javax.swing.JFrame {
     class LoginButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet.");
+            int user_id = ((ComboBoxItem)username_combo_box.getSelectedItem()).value;
+            GUIController.set_userid(user_id);
+            MainMenu main = new MainMenu();
+            GUIController.positionJFrame(main);
+            dispose();
+            
+            
         }
     }
      class ReloadListener implements WindowFocusListener{
@@ -53,7 +59,7 @@ public class Login_form extends javax.swing.JFrame {
             try {
                  fillBox();
              } catch (ClassNotFoundException ex) {
-                 Logger.getLogger(Login_form.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
              }
         }
 
@@ -63,23 +69,21 @@ public class Login_form extends javax.swing.JFrame {
         }
     }
     /**
-     * Creates new form Login_form
+     * Creates new form LoginForm
      */
-    public Login_form() {
+    public LoginForm() {
         initComponents();
         try {
             fillBox();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login_form.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
        
         
         this.addCreateNewUserButtonListener(new MyButtonListener());
         this.addLoginButtonListener(new LoginButtonListener());
         this.addWindowFocusListener(new ReloadListener());
-        this.setVisible(true);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2- this.getSize().width/2, dim.height/2 - this.getSize().height/2);
+        
        
     }
     /**
@@ -92,10 +96,10 @@ public class Login_form extends javax.swing.JFrame {
             Iterator<users_struct> i = new ReadingListDatabase().getAllUsers().iterator();
             while(i.hasNext()){
                 users_struct item = i.next();
-                this.username_combo_box.addItem(new Combo_Box_Item(item.id, item.username));
+                this.username_combo_box.addItem(new ComboBoxItem(item.id, item.username));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login_form.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
          if(this.username_combo_box.getItemCount() ==0){
             //don't let them login if there are no users
@@ -123,7 +127,7 @@ public class Login_form extends javax.swing.JFrame {
      * @return String
      */
     public String getUserName(){
-        return ((Combo_Box_Item)(this.username_combo_box.getSelectedItem())).label;
+        return ((ComboBoxItem)(this.username_combo_box.getSelectedItem())).label;
     }
     
     /**
@@ -131,7 +135,7 @@ public class Login_form extends javax.swing.JFrame {
      * @return String
      */
     public int getUserId(){
-        return ((Combo_Box_Item)(this.username_combo_box.getSelectedItem())).value;
+        return ((ComboBoxItem)(this.username_combo_box.getSelectedItem())).value;
     }
 
     /**
@@ -144,7 +148,7 @@ public class Login_form extends javax.swing.JFrame {
     private void initComponents() {
 
         login_button = new javax.swing.JButton();
-        username_combo_box = new javax.swing.JComboBox<Combo_Box_Item>();
+        username_combo_box = new javax.swing.JComboBox<ComboBoxItem>();
         create_new_user_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -205,13 +209,13 @@ public class Login_form extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login_form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -219,7 +223,7 @@ public class Login_form extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login_form().setVisible(true);
+                new LoginForm().setVisible(true);
             }
         });
     }
@@ -227,7 +231,7 @@ public class Login_form extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton create_new_user_button;
     private javax.swing.JButton login_button;
-    private javax.swing.JComboBox<Combo_Box_Item> username_combo_box;
+    private javax.swing.JComboBox<ComboBoxItem> username_combo_box;
     // End of variables declaration//GEN-END:variables
 }
 

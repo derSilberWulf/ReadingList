@@ -88,6 +88,7 @@ public class ReadingList {
             for(int i=0; i<tables.length; i++){
                 System.out.println(tables[i]);
             }
+            rld.getAllUsers();
             
             rld.addAuthor("Thomas", "Barron", "Notable for writing about Merlin.");
         } catch (ClassNotFoundException ex) {

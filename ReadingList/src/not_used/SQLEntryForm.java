@@ -3,7 +3,7 @@
  * Intended to be subclassed
  */
 
-package readinglistGUI;
+package not_used;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

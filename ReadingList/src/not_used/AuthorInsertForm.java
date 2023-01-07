@@ -2,7 +2,7 @@
  * An input form for the user to input a new Author into the Authors SQL table
  */
 
-package readinglistGUI;
+package not_used;
 
 
 import javax.swing.*;

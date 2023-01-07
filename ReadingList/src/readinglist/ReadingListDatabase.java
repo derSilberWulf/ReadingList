@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
-import javax.persistence.Tuple;
 
 /**
  *  Encapsulates the SQL database and contains methods for accessing and writing
@@ -45,12 +43,13 @@ public class ReadingListDatabase {
           return result.toArray(new String[result.size()]);
           
       
-        // stub 
-        //return new String[] {"Authors","Works","Series","Franchises"};
     }
     
     /**
      * Adds an author to the authors table
+     * @param first_name string
+     * @param last_name string
+     * @param notes string
      * @throws SQLException
      */
     public void addAuthor(String first_name, String last_name, String notes) throws SQLException{
@@ -97,12 +96,28 @@ public class ReadingListDatabase {
      * @throws SQLException 
      */
     public ResultSet getAuthorById(int id) throws SQLException{
+        //note: was using prepareCall instead of prepareStatement, which caused error
         PreparedStatement ps = 
-                this.databaseConnection.prepareCall("SELECT id, first_name, last_name FROM authors WHERE id=?");
+                this.databaseConnection.prepareStatement("SELECT id, first_name, last_name FROM authors WHERE id=?");
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
         return rs;
         
+    }
+    
+    /**
+     * Get all authors
+     * @return ResultSet with all author data where rows contain id (int) and name(string)
+     * @throws SQLException 
+     */
+    public ResultSet getAllAuthors() throws SQLException{
+        //ResultSet rs =
+        //     this.databaseConnection.createStatement().executeQuery("SELECT id, first_name, last_name FROM authors");
+        PreparedStatement ps = 
+                this.databaseConnection.prepareStatement("SELECT id, first_name || \" \" || last_name as name, notes FROM authors");
+        ResultSet rs = ps.executeQuery();
+        
+        return rs;
     }
     
     /**

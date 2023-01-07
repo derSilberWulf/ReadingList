@@ -6,11 +6,11 @@ package readinglistGUI;
  *
  * @author VJY
  */
-public class Combo_Box_Item {
+public class ComboBoxItem {
     public int value;
     public String label;
 
-    public Combo_Box_Item(int value, String label) {
+    public ComboBoxItem(int value, String label) {
         this.value = value;
         this.label = label;
     }

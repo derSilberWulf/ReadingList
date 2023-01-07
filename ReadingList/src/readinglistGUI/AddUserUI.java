@@ -33,7 +33,7 @@ public class AddUserUI extends javax.swing.JFrame {
                 jTextField1.setText("");
                 JButton thisbutton = (JButton) e.getSource();
                 Window window = SwingUtilities.windowForComponent(thisbutton);
-                //window.dispose();
+                window.dispose();
             } catch ( ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(AddUserUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -55,8 +55,7 @@ public class AddUserUI extends javax.swing.JFrame {
         initComponents();
         jButton2.addActionListener(new submitListener());
         jButton1.addActionListener(new backButtonListener());
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2- this.getSize().width/2, dim.height/2 - this.getSize().height/2);
+        GUIController.positionJFrame(this);
     }
 
        /**
