@@ -89,7 +89,7 @@ public class AddUserUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add/Modify User");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
@@ -142,6 +142,8 @@ public class AddUserUI extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(0, 2, Short.MAX_VALUE))
         );
+
+        jButton2.getAccessibleContext().setAccessibleDescription("A button to submit the username and add it to database");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

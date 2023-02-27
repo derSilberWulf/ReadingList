@@ -11,6 +11,7 @@ package DatabaseStructure;
 public class Series extends SQLTable{
     int id;
     String title;
+    String subtitle;
     String description;
     boolean ongoing;
 }

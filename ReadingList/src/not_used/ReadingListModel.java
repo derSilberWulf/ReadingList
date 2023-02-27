@@ -3,7 +3,7 @@
  * a submit button
  */
 
-package readinglist;
+package not_used;
 
 
 import java.sql.SQLException;
@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import readinglist.ReadingListDatabase;
 
 /**
  *

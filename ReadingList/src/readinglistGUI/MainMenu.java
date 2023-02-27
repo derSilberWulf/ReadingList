@@ -4,6 +4,10 @@
  */
 package readinglistGUI;
 
+import not_used.ReadingListController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * This is our main menu, which will allow us to pick what we want to do
  * and which we will come back to if we still have stuff to do
@@ -16,6 +20,11 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
     }
+    
+    
+
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +42,8 @@ public class MainMenu extends javax.swing.JFrame {
         aShow = new javax.swing.JButton();
         aBook = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        rGame = new javax.swing.JButton();
+        aGame = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,16 +55,55 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         rAnime.setText("Watch Anime");
+        rAnime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rAnimeActionPerformed(evt);
+            }
+        });
 
         rBook.setText("Read Books");
+        rBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBookActionPerformed(evt);
+            }
+        });
 
         aManga.setText("Add Manga");
+        aManga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aMangaActionPerformed(evt);
+            }
+        });
 
         aShow.setText("Add TV Show");
+        aShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aShowActionPerformed(evt);
+            }
+        });
 
         aBook.setText("Add Book Series");
+        aBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aBookActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("View Reading List");
+
+        rGame.setText("Play Video Game");
+        rGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rGameActionPerformed(evt);
+            }
+        });
+
+        aGame.setText("Add Video Game");
+        aGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aGameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,6 +112,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rManga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rAnime, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(rBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -69,7 +120,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(aManga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(aShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(aBook, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(aBook, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(aGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
@@ -90,15 +142,52 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rBook)
                     .addComponent(aBook))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rGame)
+                    .addComponent(aGame))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
+
+        rManga.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void rMangaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rMangaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_rMangaActionPerformed
+
+    private void rGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rGameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rGameActionPerformed
+
+    private void aMangaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aMangaActionPerformed
+        AddMangaSeriesPanel.main(null);
+        System.out.println("NOT RUNNING FOREVER");
+        this.dispose();
+        System.out.println("WAS IT DISPOSED OF?");
+    }//GEN-LAST:event_aMangaActionPerformed
+
+    private void aGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aGameActionPerformed
+        //ReadingListController.SetViewToAddGameForm();
+    }//GEN-LAST:event_aGameActionPerformed
+
+    private void rBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rBookActionPerformed
+
+    private void rAnimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rAnimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rAnimeActionPerformed
+
+    private void aShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aShowActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aShowActionPerformed
+
+    private void aBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aBookActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,11 +226,13 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aBook;
+    private javax.swing.JButton aGame;
     private javax.swing.JButton aManga;
     private javax.swing.JButton aShow;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton rAnime;
     private javax.swing.JButton rBook;
+    private javax.swing.JButton rGame;
     private javax.swing.JButton rManga;
     // End of variables declaration//GEN-END:variables
 }

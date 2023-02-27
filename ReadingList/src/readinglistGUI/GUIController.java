@@ -11,9 +11,12 @@
 package readinglistGUI;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.Window;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -52,12 +55,15 @@ public class GUIController {
         jf.setLocation(dim.width/2- jf.getSize().width/2, dim.height/2 - jf.getSize().height/2);
     }
     
+
+    
     
     public static void main(String[] args){
         //upon startup, go to login
         //Window myWindow 
         JFrame myWindow = new LoginForm();
         positionJFrame(myWindow);
+        
         
         
         //actual flow will have to be done with event listeners
@@ -67,5 +73,51 @@ public class GUIController {
         //with user id, go to a gui asking user what they want to do
         
         //from here, there will be options, such as adding new data or viewing data
+    }
+    
+    public static void SwitchToLoginForm(Point location){
+        JFrame myWindow = new LoginForm();
+        myWindow.setLocation(location);
+    }
+    
+    public static void testPanel(JComponent jp){
+        JFrame jf = new JFrame();
+        jf.add(jp);
+        GUIController.positionJFrame(jf);
+        jf.setVisible(true);
+        //jf.setSize(new Dimension(jp.getWidth(), jp.getHeight()) );
+        jf.pack();
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+    
+      /**
+     * Picks an item  in a JComboBox based on value
+     * @param comboBox
+     * @param value 
+     */
+    public static void setComboBoxSelectedValue(JComboBox<ComboBoxItem> comboBox, int value){
+        ComboBoxItem item;
+        for (int i = 0; i < comboBox.getItemCount(); i++){
+            item = comboBox.getItemAt(i);
+            if (item.value == value){
+                comboBox.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+    /**
+     * Picks an item in a JComboBox based on label
+     * @param comboBox
+     * @param label 
+     */
+    public static  void setComboBoxSelectedValue(JComboBox<ComboBoxItem> comboBox, String label){
+        ComboBoxItem item;
+        for (int i = 0; i < comboBox.getItemCount(); i++){
+            item = comboBox.getItemAt(i);
+            if (item.label == null ? label == null : item.label.equals(label)){
+                comboBox.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 }

@@ -1,10 +1,21 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+* TO DO: CHANGES ARE NEEDED. A work can have multiple authors, and each can have a role in that work.
+* For instance, Director, Author, etc. This panel will have to do this for one author,
+ * probably, and multiple panels will be used in conjunction.
  */
 package readinglistGUI;
 
+import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import readinglist.ReadingListDatabase;
 
 /**
  *
@@ -19,6 +30,9 @@ public class AddAuthorPanel extends javax.swing.JPanel {
     public AddAuthorPanel() {
         initComponents();
         this.authorId = null;
+        this.setRoles();
+        GUIController.setComboBoxSelectedValue(this.roleComboBox, "Author");
+        //this.setComboBoxSelectedValue("Author");
     }
     
     /**
@@ -38,11 +52,67 @@ public class AddAuthorPanel extends javax.swing.JPanel {
      * Collects the user input in the form and returns it
      * @return ArrayList of Strings
      */
-    public ArrayList<String> collectFormInfo(){
-        System.out.println(this.firstName.getText());
-        System.out.println(this.lastName.getText());
-        System.out.println(this.notes.getText());
-        return null;
+    public ArrayList<String> collectAuthorInfo(){
+        //System.out.println(this.firstName.getText());
+        //System.out.println(this.lastName.getText());
+        //System.out.println(this.notes.getText());
+        ArrayList<String> collectedInfo = new ArrayList<>();
+        
+       
+       collectedInfo.add(this.firstName.getText());
+       collectedInfo.add(this.lastName.getText());
+       collectedInfo.add(this.notes.getText());
+       
+        return collectedInfo;
+    }
+    
+    /**
+     * Get the selected role id
+     * @return int
+     */
+    public int getRole(){
+        return ((ComboBoxItem) this.roleComboBox.getSelectedItem()).value;
+    }
+    
+    public int createAuthor() throws SQLException, ClassNotFoundException{
+        ReadingListDatabase rld = new ReadingListDatabase();
+        ArrayList<String> al = this.collectAuthorInfo();
+        int id = rld.addAuthor2(al.get(0), al.get(1), al.get(2));
+        rld.disconnect();
+        return id;
+    }
+    /**
+     * Get all roles from the database and set them in the selector
+     */
+    public final void setRoles(){
+        this.roleComboBox.removeAllItems();
+
+        try {
+            ReadingListDatabase rld = new ReadingListDatabase();
+            ArrayList<ComboBoxItem> items = rld.getListPairs(rld.getAllRoles());
+            Iterator<ComboBoxItem> i = items.iterator();
+            while(i.hasNext()){
+                this.roleComboBox.addItem(i.next());
+            }
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AddAuthorPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+
+
+    public void setFormInfo(int id, String firstName, String lastName, String notes, int role){
+        this.authorId = id;
+        this.firstName.setText(firstName);
+        this.lastName.setText(lastName);
+        this.notes.setText(notes);
+        GUIController.setComboBoxSelectedValue(this.roleComboBox, role);
+    }
+    
+       public static void main(String[] args){
+        GUIController.testPanel(new AddAuthorPanel());
     }
 
     /**
@@ -61,6 +131,10 @@ public class AddAuthorPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        roleComboBox = new javax.swing.JComboBox<>();
+
+        setToolTipText("");
 
         notes.setColumns(20);
         notes.setRows(5);
@@ -78,37 +152,50 @@ public class AddAuthorPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Notes (optional) :");
 
+        jLabel4.setText("Role:");
+        jLabel4.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(firstName, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastName, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(roleComboBox, 0, 165, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(firstName))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -123,8 +210,10 @@ public class AddAuthorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastName;
     private javax.swing.JTextArea notes;
+    private javax.swing.JComboBox<ComboBoxItem> roleComboBox;
     // End of variables declaration//GEN-END:variables
 }

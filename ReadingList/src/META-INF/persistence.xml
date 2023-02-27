@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="ReadingListPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.Tags</class>
+    <class>entities.ReadingSessions</class>
+    <class>entities.Series</class>
+    <class>entities.LkSeriesWorks</class>
+    <class>entities.ReadingSessionsSeries</class>
+    <class>entities.Users</class>
+    <class>entities.Franchises</class>
+    <class>entities.LkAuthorsWorks</class>
+    <class>entities.LkTagsWorks</class>
+    <class>entities.LkPublishersWorks</class>
+    <class>entities.MediaTypes</class>
+    <class>entities.Publishers</class>
+    <class>entities.Works</class>
+    <class>entities.Roles</class>
+    <class>entities.LkSeriesFranchises</class>
+    <class>entities.Authors</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:\Users\yahna\OneDrive\Documents\NetBeansProjects\ReadingList\ReadingList\ReadingList\reading_list.db"/>
+      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>

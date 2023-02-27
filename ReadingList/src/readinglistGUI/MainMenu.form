@@ -26,6 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="rGame" max="32767" attributes="0"/>
                   <Component id="rManga" max="32767" attributes="0"/>
                   <Component id="rAnime" pref="137" max="32767" attributes="0"/>
                   <Component id="rBook" max="32767" attributes="0"/>
@@ -35,6 +36,7 @@
                   <Component id="aManga" max="32767" attributes="0"/>
                   <Component id="aShow" max="32767" attributes="0"/>
                   <Component id="aBook" pref="137" max="32767" attributes="0"/>
+                  <Component id="aGame" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="284" max="32767" attributes="0"/>
               <Component id="jButton1" min="-2" pref="137" max="-2" attributes="0"/>
@@ -61,7 +63,12 @@
                   <Component id="rBook" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="aBook" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="247" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rGame" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="aGame" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="212" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,6 +78,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Read Manga"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rMangaActionPerformed"/>
       </Events>
@@ -79,31 +89,62 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Watch Anime"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rAnimeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="rBook">
       <Properties>
         <Property name="text" type="java.lang.String" value="Read Books"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBookActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="aManga">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Manga"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aMangaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="aShow">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add TV Show"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aShowActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="aBook">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Book Series"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aBookActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="View Reading List"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="rGame">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Play Video Game"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rGameActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="aGame">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Video Game"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aGameActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

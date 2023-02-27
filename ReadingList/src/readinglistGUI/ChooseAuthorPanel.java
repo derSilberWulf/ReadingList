@@ -1,15 +1,21 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+* CHANGES ARE NEEDED. EACH AUTHOR NEEDS TO BE SELECTED WITH A ROLE. I THINK WE NEED TO DITCH
+ THE MULTI SELECT AND JUST USE MULTIPLE PANELS.
  */
 package readinglistGUI;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import readinglist.ReadingListDatabase;
 
 /**
  *
@@ -25,34 +31,61 @@ public class ChooseAuthorPanel extends javax.swing.JPanel {
         //ListModel lm;
         //authorList.setmode
         fillAuthorList();
+        setRoles();
+        GUIController.setComboBoxSelectedValue(roleList, "Author");
     }
     
     /**
      * Gets all authors from the database and puts them in the list
      */
     public void fillAuthorList(){
-        this.authorList.clearSelection();
+        this.authorList.removeAllItems();
         try {
             //this.authorList.getSelectedValuesList();//will need this method later
             readinglist.ReadingListDatabase rld = new readinglist.ReadingListDatabase();
-            ResultSet authorsRS = rld.getAllAuthors();
-            ArrayList<ComboBoxItem> authorItems = new ArrayList<>();
-            while(authorsRS.next()){
-                String name = authorsRS.getString("name");
-                int id = authorsRS.getInt("id");
-                ComboBoxItem cbi = new ComboBoxItem(id, name);
-                authorItems.add(cbi);
-                
-            }
-            this.authorList.setListData(authorItems.toArray(new ComboBoxItem[authorItems.size()]));
+            ArrayList<ComboBoxItem> authorItems = rld.getListPairs(rld.getAllAuthors());
+            this.authorList.setModel(new DefaultComboBoxModel<ComboBoxItem>(authorItems.toArray(new ComboBoxItem[0])));
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ChooseAuthorPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * Get all roles from the database and set them in the selector
+     * TODO: REFACTOR, AS THIS METHOD IS REPEATED ACROSS AddAuthorPanel and is also same as above method
+     */
+    public final void setRoles(){
+        this.roleList.removeAllItems();
+
+        try {
+            ReadingListDatabase rld = new ReadingListDatabase();
+            ArrayList<ComboBoxItem> items = rld.getListPairs(rld.getAllRoles());
+            this.roleList.setModel(new DefaultComboBoxModel<ComboBoxItem>(items.toArray(new ComboBoxItem[0])));
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AddAuthorPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Get the user selected authors
+     * @return a list of ComboBoxItems where value is the author id and label is author name
+     */
+    public ComboBoxItem getAuthor(){
+        ComboBoxItem cb = (ComboBoxItem)this.authorList.getSelectedItem();
+        return cb;
+    }
+    
+    /**
+     * Get the user selected role
+     * @return a list of ComboBoxItems where value is the role id and label is role name
+     */
+    public ComboBoxItem getRole(){
+        ComboBoxItem cb = (ComboBoxItem)this.roleList.getSelectedItem();
+        return cb;
+    }
     public static void main(String[] args){
-        JFrame jf = new JFrame();
-        jf.add(new ChooseAuthorPanel());
-        jf.setVisible(true);
+        GUIController.testPanel(new ChooseAuthorPanel());
     }
 
     /**
@@ -64,32 +97,50 @@ public class ChooseAuthorPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        authorList = new javax.swing.JList<>();
+        authorList = new javax.swing.JComboBox<>();
+        roleList = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        jScrollPane1.setViewportView(authorList);
+        jLabel1.setText("Name");
+
+        jLabel2.setText("Role");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(authorList, 0, 128, Short.MAX_VALUE)
+                    .addComponent(roleList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roleList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<ComboBoxItem> authorList;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<ComboBoxItem> authorList;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<ComboBoxItem> roleList;
     // End of variables declaration//GEN-END:variables
 }

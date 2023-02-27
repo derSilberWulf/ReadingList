@@ -5,7 +5,6 @@
 package not_used;
 
 import javax.swing.DefaultComboBoxModel;
-import readinglist.ReadingListModel;
 
 /**
  *
